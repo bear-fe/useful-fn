@@ -1,30 +1,33 @@
 
 /**
- * @description 将对象字面量序列化为查询字符串参数
- * @param {Object} a 对象
+ * @description param
+ * @param {Object} a
  * @return {String}
  */
 
-var isFunction = require('./is-function')
+var isArray = require('./is/array')
+var isFunction = require('./is/function')
 
-function buildParams(prefix, obj, add) {
-  if (Array.isArray(obj)) {
-    obj.forEach(function(item) {
-      add(prefix, item)
-    })
+function buildParams(prefix, o, add) {
+  if (isArray(o)) {
+    var i = 0
+      , len = o.length
+    for (; i < len; i++) {
+      add(prefix, o[i])
+    }
 
   } else {
-    add(prefix, obj)
+    add(prefix, o)
   }
 }
 
-function param(a) {
-  var prefix,
-      s = [],
-      add = function(key, value) {
-        value = isFunction(value) ? value() : (value == null ? '' : value)
-        s[s.length] = encodeURIComponent(key) + '=' + encodeURIComponent(value)
-      }
+module.exports = function(a) {
+  var prefix
+    , s = []
+    , add = function(key, value) {
+      value = isFunction(value) ? value() : (value == null ? '' : value)
+      s[s.length] = encodeURIComponent(key) + '=' + encodeURIComponent(value)
+    }
 
   for (prefix in a) {
     buildParams(prefix, a[prefix], add)
@@ -32,5 +35,3 @@ function param(a) {
 
   return s.join('&').replace(/%20/g, '+')
 }
-
-module.exports = param

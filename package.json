@@ -1,8 +1,11 @@
 {
   "name": "useful-fn",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Useful function",
   "main": "index.js",
   "author": "xyzhanjiang",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "tape": "^4.10.1"
+  }
 }

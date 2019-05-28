@@ -1,10 +1,18 @@
 
-var isFunction = require('./is-function')
-var param = require('./param')
-var parseQuery = require('./parse-query')
+var currency = require('./currency')
+  , isArray = require('./is/array')
+  , isFunction = require('./is/function')
+  , isNumber = require('./is/number')
+  , param = require('./param')
+  , parseQuery = require('./parse-query')
+  , transition = require('./transition')
 
 module.exports = {
+  currency: currency,
+  isArray: isArray,
   isFunction: isFunction,
+  isNumber: isNumber,
   param: param,
-  parseQuery: parseQuery
+  parseQuery: parseQuery,
+  transition: transition
 }

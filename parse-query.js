@@ -1,34 +1,43 @@
 
 /**
- * @description 转换查询字符串为对象
- * @param {String} query 查询字符串
+ * @description parse query
+ * @param {String} query
  * @return {Object}
  */
 
-function parseQuery(query) {
+var isArray = require('./is/array')
+
+module.exports = function(query) {
   if (typeof query != 'string') {
-    return
+    query = window.location.search.slice(1)
   }
-  var obj = {}
-  var arr = query.split('&')
-  arr.forEach(function(item) {
-    var arr2 = item.split('=')
-    var key = decodeURIComponent(arr2[0])
-    var val = decodeURIComponent(arr2[1])
 
-    if (!key || !val) return
+  if (query == '') {
+    return query
+  }
 
-    if (obj[key]) {
-      if (Array.isArray(obj[key])) {
-        obj[key].push(val)
+  var o = {}
+    , i = 0
+    , arr = query.split('&')
+    , len = arr.length
+
+  for (; i < len; i++) {
+    var arr2 = arr[i].split('=')
+      , key = decodeURIComponent(arr2[0])
+      , val = decodeURIComponent(arr2[1])
+
+    if (!key || !val) continue
+
+    if (o[key]) {
+      if (isArray(o[key])) {
+        o[key].push(val)
       } else {
-        obj[key] = [obj[key], val]
+        o[key] = [o[key], val]
       }
     } else {
-      obj[key] = val
+      o[key] = val
     }
-  })
-  return obj
-}
+  }
 
-module.exports = parseQuery
+  return o
+}

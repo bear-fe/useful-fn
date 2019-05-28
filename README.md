@@ -2,11 +2,13 @@
 
 Useful function
 
+For my work
+
 ## Installation
 
 ### NPM
 
-通过 npm 安装：
+Installation via npm
 
 ``` shell
 $ npm install --save useful-fn
@@ -34,20 +36,42 @@ import param from 'useful-fn/param'
 
 ## Usage
 
-### isFunction
-
-判断是否是函数
+### currency
 
 ``` javascript
-import isFunction from 'useful-fn/is-function'
+import currency from 'useful-fn/currency'
+
+currency(1000) // 1,000.00
+```
+
+### isArray
+
+``` javascript
+import isArray from 'useful-fn/is/array'
+
+isArray([]) // true
+```
+
+### isFunction
+
+``` javascript
+import isFunction from 'useful-fn/is/function'
 
 function foo() {}
 isFunction(foo) // true
 ```
 
-### param
+### isNumber
 
-将对象序列化为查询字符串
+``` javascript
+import isNumber from 'useful-fn/is/number'
+
+isNumber(1) // true
+isNumber(NaN) // false
+isNumber(infinite) // false
+```
+
+### param
 
 ``` javascript
 import param from 'useful-fn/param'
@@ -62,12 +86,24 @@ var s = param({
 
 ### parseQuery
 
-解析查询参数
-
 ``` javascript
 import parseQuery from 'useful-fn/parse-query'
 
 var obj = parseQuery(window.location.search.slice(1))
+```
+
+### transition
+
+``` javascript
+import transition from 'useful-fn/transition'
+
+if (transition) {
+  element.addEventListener(transition.end, function() {
+    //
+  })
+} else {
+  // Not support
+}
 ```
 
 ## License
